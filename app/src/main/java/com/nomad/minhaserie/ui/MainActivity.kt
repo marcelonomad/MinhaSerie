@@ -1,9 +1,8 @@
 package com.nomad.minhaserie.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nomad.minhaserie.R
 import com.nomad.minhaserie.adapter.ShowAdapter
@@ -13,7 +12,7 @@ import com.nomad.minhaserie.dataaccess.models.Show
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Response
-import javax.security.auth.callback.Callback
+
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

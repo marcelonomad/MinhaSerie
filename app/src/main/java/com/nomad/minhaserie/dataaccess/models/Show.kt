@@ -7,15 +7,21 @@ data class Show(
 
     @SerializedName("id")
     @Expose
-     val id: Integer,
+    val id: Integer,
 
     @SerializedName("name")
     @Expose
-     val name: String,
+    val name: String,
 
     @SerializedName("summary")
     @Expose
-    val summary: String
+    val summary: String,
+    @SerializedName("image")
+    @Expose
+    val image: ImageShow,
+    @SerializedName("genres")
+    @Expose
+    val genres: List<String>
 )
 
 
