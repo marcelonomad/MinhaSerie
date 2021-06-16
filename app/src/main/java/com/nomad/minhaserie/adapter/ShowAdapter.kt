@@ -40,6 +40,12 @@ class ShowAdapter(var shows: MutableList<Show>, var context: Context) : PagingAd
         notifyItemRangeInserted(lastSize, newItems)
     }
 
+    fun removeAllShows() {
+        val showCount = shows.size
+        this.shows.clear()
+        notifyItemRangeRemoved(0, showCount)
+    }
+
     override fun getPagingLayout(): Int {
         return R.layout.item_show
     }

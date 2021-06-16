@@ -22,4 +22,7 @@ class TVMazeApi {
 interface TVMazeEndpoints {
     @GET("show/")
     fun getShowByPage(@Query("page") page: Int): Call<List<Show>>
+
+    @GET("search/shows/")
+    fun getShowsByName(@Query("q") q: String): Call<List<Show>>
 }
