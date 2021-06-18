@@ -11,11 +11,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.akiniyalocts.pagingrecycler.PagingDelegate
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.internal.ContextUtils.getActivity
+import com.nomad.minhaserie.BuildConfig
 import com.nomad.minhaserie.R
 import com.nomad.minhaserie.adapter.ShowAdapter
 import com.nomad.minhaserie.api.TVMazeApi
 import com.nomad.minhaserie.api.TVMazeEndpoints
 import com.nomad.minhaserie.dataaccess.models.Show
+import com.nomad.minhaserie.dataaccess.models.ShowByName
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.item_search_show.*
 import retrofit2.Call
@@ -67,26 +69,36 @@ class MainActivity : AppCompatActivity(), PagingDelegate.OnPageListener {
 
     private fun getShowsByName(name: String) {
         adapter.removeAllShows()
+        this@MainActivity.tempShows.clear()
+        /*var showsOldSize = shows.size
         shows.clear()
+        this@MainActivity.adapter.notifyItemRangeRemoved(0, showsOldSize)*/
+
         llLoader.visibility = View.VISIBLE
         val shows = tvMaze.getShowsByName(name)
-        shows.enqueue(object : retrofit2.Callback<List<Show>> {
-            override fun onFailure(call: Call<List<Show>>, t: Throwable) {
+        shows.enqueue(object : retrofit2.Callback<List<ShowByName>> {
+            override fun onFailure(call: Call<List<ShowByName>>, t: Throwable) {
                 //TODO:falha
                 llLoader.visibility = View.INVISIBLE
 
             }
 
             override fun onResponse(
-                call: Call<List<Show>>,
-                response: Response<List<Show>>
+                call: Call<List<ShowByName>>,
+                response: Response<List<ShowByName>>
             ) {
                 if (response.body() != null) {
-                    this@MainActivity.tempShows = response.body() as MutableList<Show>
+                    var showsByName = response.body() as MutableList<ShowByName>
+                    showsByName.forEach {
+                        this@MainActivity.tempShows.add(it.show)
+                    }
                     this@MainActivity.shows.addAll(this@MainActivity.tempShows)
                     /*if (firstLoad)
                         setupRecyclerView()*/
-                    this@MainActivity.adapter.notifyDataSetChanged()
+                    this@MainActivity.adapter.notifyItemRangeInserted(
+                        0,
+                        this@MainActivity.shows.size
+                    )
                     llLoader.visibility = View.INVISIBLE
                 }
             }
@@ -132,6 +144,9 @@ class MainActivity : AppCompatActivity(), PagingDelegate.OnPageListener {
     fun showSearchOptions() {
         val dialog = BottomSheetDialog(this, R.style.DialogStyle)
         dialog.setContentView(R.layout.item_search_show)
+        if (BuildConfig.DEBUG) {
+            dialog.txtSearchShow.setText("Supernatural")
+        }
         dialog.btnSearch.setOnClickListener {
             getShowsByName(dialog.txtSearchShow.text.toString())
             /*Toast.makeText(

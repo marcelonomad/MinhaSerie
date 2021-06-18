@@ -1,6 +1,7 @@
 package com.nomad.minhaserie.api
 
 import com.nomad.minhaserie.dataaccess.models.Show
+import com.nomad.minhaserie.dataaccess.models.ShowByName
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -24,5 +25,5 @@ interface TVMazeEndpoints {
     fun getShowByPage(@Query("page") page: Int): Call<List<Show>>
 
     @GET("search/shows/")
-    fun getShowsByName(@Query("q") q: String): Call<List<Show>>
+    fun getShowsByName(@Query("q") q: String): Call<List<ShowByName>>
 }

@@ -69,12 +69,19 @@ class ShowViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         showRate.text = show.rating.average.toString()
 
-        if (show.image.medium != null)
+        if (show.image?.medium != null) {
             Glide.with(context)
                 .load(show.image.medium)
                 .placeholder(R.drawable.popcorn)
                 .apply(RequestOptions().override(200, 300))
                 .into(image)
+        } else {
+            Glide.with(context)
+                .load(R.drawable.popcorn)
+                .apply(RequestOptions().override(200, 300))
+                .into(image)
+
+        }
     }
 }
 
