@@ -3,4 +3,11 @@
     <string name="show_rate">9.1</string>
     <string name="name">Nome</string>
     <string name="search">Procurar</string>
+    <string name="genres" >Gêneros</string>
+    <string name="programacao">Programação</string>
+    <string name="hour">Hora</string>
+    <string name="days">Dia(s)</string>
+    <string name="summary">Resumo</string>
+    <string name="Resumo">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse pellentesque volutpat mi, non fringilla turpis tincidunt at. Nulla bibendum pulvinar lorem, ac venenatis augue tincidunt ac. Maecenas id libero lectus. Donec at tristique augue, a pellentesque tellus. Phasellus dictum elit accumsan, maximus tellus et, facilisis odio. Suspendisse congue risus nisl.</string>
+
 </resources>

@@ -4,18 +4,15 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.view.WindowManager
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.akiniyalocts.pagingrecycler.PagingDelegate
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.internal.ContextUtils.getActivity
 import com.nomad.minhaserie.BuildConfig
 import com.nomad.minhaserie.R
 import com.nomad.minhaserie.adapter.ShowAdapter
-import com.nomad.minhaserie.api.TVMazeApi
-import com.nomad.minhaserie.api.TVMazeEndpoints
+import com.nomad.minhaserie.dataaccess.api.TVMazeApi
+import com.nomad.minhaserie.dataaccess.api.TVMazeEndpoints
 import com.nomad.minhaserie.dataaccess.models.Show
 import com.nomad.minhaserie.dataaccess.models.ShowByName
 import kotlinx.android.synthetic.main.activity_main.*
@@ -41,7 +38,7 @@ class MainActivity : AppCompatActivity(), PagingDelegate.OnPageListener {
 
     private fun getShows(firstLoad: Boolean = false) {
         llLoader.visibility = View.VISIBLE
-        val shows = tvMaze.getShowByPage(showsPage)
+        val shows = tvMaze.getShowsByPage(showsPage)
 
         shows.enqueue(object : retrofit2.Callback<List<Show>> {
             override fun onFailure(call: Call<List<Show>>, t: Throwable) {
@@ -70,9 +67,6 @@ class MainActivity : AppCompatActivity(), PagingDelegate.OnPageListener {
     private fun getShowsByName(name: String) {
         adapter.removeAllShows()
         this@MainActivity.tempShows.clear()
-        /*var showsOldSize = shows.size
-        shows.clear()
-        this@MainActivity.adapter.notifyItemRangeRemoved(0, showsOldSize)*/
 
         llLoader.visibility = View.VISIBLE
         val shows = tvMaze.getShowsByName(name)
@@ -93,13 +87,12 @@ class MainActivity : AppCompatActivity(), PagingDelegate.OnPageListener {
                         this@MainActivity.tempShows.add(it.show)
                     }
                     this@MainActivity.shows.addAll(this@MainActivity.tempShows)
-                    /*if (firstLoad)
-                        setupRecyclerView()*/
                     this@MainActivity.adapter.notifyItemRangeInserted(
                         0,
                         this@MainActivity.shows.size
                     )
                     llLoader.visibility = View.INVISIBLE
+                    this@MainActivity.adapter.notifyDataSetChanged()
                 }
             }
         })
@@ -123,7 +116,7 @@ class MainActivity : AppCompatActivity(), PagingDelegate.OnPageListener {
     override fun onPage(p0: Int) {
         if (p0 <= shows.size) {
             getShows()
-            val lastItem = adapter!!.pagingItemCount - 1
+            val lastItem = adapter.pagingItemCount - 1
             adapter.addShows(tempShows)
             rcvItemShow.smoothScrollToPosition(lastItem + 5)
         } else onDonePaging()
@@ -141,7 +134,7 @@ class MainActivity : AppCompatActivity(), PagingDelegate.OnPageListener {
         return super.onOptionsItemSelected(item)
     }
 
-    fun showSearchOptions() {
+    private fun showSearchOptions() {
         val dialog = BottomSheetDialog(this, R.style.DialogStyle)
         dialog.setContentView(R.layout.item_search_show)
         if (BuildConfig.DEBUG) {
@@ -149,12 +142,6 @@ class MainActivity : AppCompatActivity(), PagingDelegate.OnPageListener {
         }
         dialog.btnSearch.setOnClickListener {
             getShowsByName(dialog.txtSearchShow.text.toString())
-            /*Toast.makeText(
-                this@MainActivity,
-                dialog.txtSearchShow.text.toString(),
-                Toast.LENGTH_SHORT
-            )
-                .show()*/
             dialog.dismiss()
         }
         dialog.show()

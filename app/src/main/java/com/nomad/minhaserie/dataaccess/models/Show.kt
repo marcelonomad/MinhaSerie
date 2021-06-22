@@ -27,7 +27,10 @@ data class Show(
 
     @SerializedName("rating")
     @Expose
-    val rating: Rating
+    val rating: Rating,
+    @SerializedName("schedule")
+    @Expose
+    val schedule: Schedule
 )
 
 
