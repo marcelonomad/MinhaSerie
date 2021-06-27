@@ -9,5 +9,9 @@
     <string name="days">Dia(s)</string>
     <string name="summary">Resumo</string>
     <string name="Resumo">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse pellentesque volutpat mi, non fringilla turpis tincidunt at. Nulla bibendum pulvinar lorem, ac venenatis augue tincidunt ac. Maecenas id libero lectus. Donec at tristique augue, a pellentesque tellus. Phasellus dictum elit accumsan, maximus tellus et, facilisis odio. Suspendisse congue risus nisl.</string>
+    <string name="season_number">1ª Temporada</string>
+    <string name="episode_number_name">1 - Piloto</string>
+    <string name="episode_summary"><![CDATA[<p>The Creepy. The Demented. The Unexplained. The Unearthly. Sam Winchester grew up hunting such terrifying things. But that\'s all past. Law school beckons him. So does safety and normalcy. That is, until Sam\'s estranged brother Dean appears with troubling news: their father has disappeared, a man who\'s hunted evil for 22 years. So to find their father, the brothers must hunt what their father hunts…and Sam must return to the life he\'d rather leave behind. Hold on tight for all 22 Season One Episodes of the edgy, hip series that has viewers in its grip and critics enthralled. Confront the Supernatural!</p>]]></string>
+    <string name="seasons">Temporadas</string>
 
 </resources>

@@ -5,22 +5,29 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Html
 import android.view.View
+import android.widget.LinearLayout
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.nomad.minhaserie.R
+import com.nomad.minhaserie.adapter.SeasonAdapter
 import com.nomad.minhaserie.dataaccess.api.TVMazeApi
 import com.nomad.minhaserie.dataaccess.api.TVMazeEndpoints
+import com.nomad.minhaserie.dataaccess.models.Episode
+import com.nomad.minhaserie.dataaccess.models.Season
 import com.nomad.minhaserie.dataaccess.models.Show
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_show_detail.*
 import retrofit2.Call
 import retrofit2.Response
+import java.lang.Exception
 
 class ShowDetail : AppCompatActivity() {
     var id: Int = 0
     private val client = TVMazeApi.getInstance()
     private val tvMaze = client.create(TVMazeEndpoints::class.java)
     private lateinit var show: Show
+    private lateinit var seasons: List<Season>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,12 +57,65 @@ class ShowDetail : AppCompatActivity() {
             ) {
                 if (response.body() != null) {
                     this@ShowDetail.show = response.body()!!
-                    pgbShowDetalhe.visibility = View.GONE
                     loadShowData()
-                    srvShowDetalhe.visibility = View.VISIBLE
+                    getShowSeasons(id)
                 }
             }
         })
+    }
+
+    private fun getShowSeasons(showId: Int) {
+        val season = tvMaze.getSeasonsByShowId(showId)
+        season.enqueue(object : retrofit2.Callback<List<Season>> {
+            override fun onFailure(call: Call<List<Season>>, t: Throwable) {
+                pgbShowDetalhe.visibility = View.GONE
+                srvShowDetalhe.visibility = View.VISIBLE
+            }
+
+            override fun onResponse(call: Call<List<Season>>, response: Response<List<Season>>) {
+                if (response.body() != null) {
+                    this@ShowDetail.seasons = response.body()!!
+                    getEpisodesBySeason()
+                }
+            }
+        })
+    }
+
+    private fun getEpisodesBySeason() {
+        var episode: Call<List<Episode>>
+        var seasonFetched = 0
+
+        seasons.forEach {
+            episode = tvMaze.getEpisodesBySeasonId(it.id)
+
+            episode.enqueue(object : retrofit2.Callback<List<Episode>> {
+                override fun onFailure(call: Call<List<Episode>>, t: Throwable) {
+                    TODO("Not yet implemented")
+                }
+
+                override fun onResponse(
+                    call: Call<List<Episode>>,
+                    response: Response<List<Episode>>
+                ) {
+                    if (response.body() != null) {
+                        it.episodes = response.body()!!
+                        seasonFetched++
+                        if (seasonFetched == seasons.size) {
+                            loadSeasonsData()
+                            pgbShowDetalhe.visibility = View.GONE
+                            srvShowDetalhe.visibility = View.VISIBLE
+                        }
+                    }
+                }
+            })
+        }
+    }
+
+    private fun loadSeasonsData() {
+        val lm = LinearLayoutManager(this)
+        rcvSeasons.layoutManager = lm
+        val adapter = SeasonAdapter(seasons, this)
+        rcvSeasons.adapter = adapter
     }
 
     @SuppressLint("SetTextI18n")

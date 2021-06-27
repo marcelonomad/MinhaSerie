@@ -67,14 +67,13 @@ class MainActivity : AppCompatActivity(), PagingDelegate.OnPageListener {
     private fun getShowsByName(name: String) {
         adapter.removeAllShows()
         this@MainActivity.tempShows.clear()
+        this@MainActivity.adapter.notifyDataSetChanged()
 
         llLoader.visibility = View.VISIBLE
         val shows = tvMaze.getShowsByName(name)
         shows.enqueue(object : retrofit2.Callback<List<ShowByName>> {
             override fun onFailure(call: Call<List<ShowByName>>, t: Throwable) {
-                //TODO:falha
                 llLoader.visibility = View.INVISIBLE
-
             }
 
             override fun onResponse(

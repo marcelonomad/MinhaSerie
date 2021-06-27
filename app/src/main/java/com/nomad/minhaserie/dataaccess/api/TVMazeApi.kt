@@ -1,5 +1,7 @@
 package com.nomad.minhaserie.dataaccess.api
 
+import com.nomad.minhaserie.dataaccess.models.Episode
+import com.nomad.minhaserie.dataaccess.models.Season
 import com.nomad.minhaserie.dataaccess.models.Show
 import com.nomad.minhaserie.dataaccess.models.ShowByName
 import retrofit2.Call
@@ -30,4 +32,11 @@ interface TVMazeEndpoints {
 
     @GET("shows/{id}")
     fun getShowById(@Path(value = "id") id: Int): Call<Show>
+
+    @GET("shows/{id}/seasons")
+    fun getSeasonsByShowId(@Path(value = "id") id: Int): Call<List<Season>>
+
+    @GET("seasons/{id}/episodes")
+    fun getEpisodesBySeasonId(@Path(value = "id") id: Int): Call<List<Episode>>
+
 }

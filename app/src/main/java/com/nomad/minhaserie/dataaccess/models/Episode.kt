@@ -7,23 +7,19 @@ data class Episode(
 
     @SerializedName("id")
     @Expose
-    private val id: Integer,
+    val id: Integer,
 
     @SerializedName("name")
     @Expose
-    private val name: String,
+    val name: String,
     @SerializedName("season")
     @Expose
-    private val season: Integer,
+    val season: Integer,
     @SerializedName("number")
     @Expose
-    private val number: Integer,
+    val number: Integer,
 
     @SerializedName("summary")
     @Expose
-    private val summary: String
+    val summary: String
 )
-
-/*@SerializedName("image")
-@Expose
-private Image image;*/
