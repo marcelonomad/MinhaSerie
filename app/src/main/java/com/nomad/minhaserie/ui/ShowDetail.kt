@@ -140,7 +140,7 @@ class ShowDetail : AppCompatActivity() {
             var generos = showGeneros[0]
             if (showGeneros.size > 1)
                 for (i in 1 until showGeneros.size)
-                    generos.plus(", ${showGeneros[i]}")
+                    generos = generos.plus(", ${showGeneros[i]}")
             lblShowGeneros.text = generos
         }
 
