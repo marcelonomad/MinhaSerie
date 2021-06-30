@@ -13,15 +13,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MinhaSérie"
         tools:replace="theme">
-        <activity android:name=".ui.ShowDetail"></activity>
-        <activity android:name=".ui.Splash">
-        </activity>
-        <activity android:name=".ui.MainActivity">
+        <activity android:name=".ui.EpisodeDetail"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".ui.ShowDetail" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.Splash" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".ui.MainActivity" android:screenOrientation="portrait">
+
         </activity>
     </application>
 

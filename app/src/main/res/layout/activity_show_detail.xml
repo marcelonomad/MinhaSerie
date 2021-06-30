@@ -75,17 +75,6 @@
                         android:text="@string/show_rate"
                         app:layout_constraintStart_toEndOf="@+id/imgRateShowDetalhe"
                         app:layout_constraintTop_toBottomOf="@+id/lblNomeShow" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="8dp">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
 
                     <TextView
                         android:id="@+id/lblShowGenero"
@@ -96,8 +85,8 @@
                         android:text="@string/genres"
                         android:textColor="@color/black"
                         android:textSize="18sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintStart_toEndOf="@+id/imgShowDetalhe"
+                        app:layout_constraintTop_toBottomOf="@+id/imgRateShowDetalhe" />
 
                     <TextView
                         android:id="@+id/lblShowGeneros"
@@ -108,20 +97,8 @@
                         android:layout_marginEnd="8dp"
                         android:text="@string/genres"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/imgShowDetalhe"
                         app:layout_constraintTop_toBottomOf="@+id/lblShowGenero" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="8dp">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
 
                     <TextView
                         android:id="@+id/lblProgramacaoDetalhe"
@@ -132,17 +109,19 @@
                         android:text="@string/programacao"
                         android:textColor="@color/black"
                         android:textSize="18sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintStart_toEndOf="@+id/imgShowDetalhe"
+                        app:layout_constraintTop_toBottomOf="@+id/lblShowGeneros" />
 
                     <TextView
                         android:id="@+id/lblHoraShowDetalhe"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
                         android:text="@string/hour"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/imgShowDetalhe"
                         app:layout_constraintTop_toBottomOf="@+id/lblProgramacaoDetalhe" />
 
                     <TextView
@@ -152,11 +131,9 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
-                        android:layout_marginBottom="8dp"
                         android:text="@string/days"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/imgShowDetalhe"
                         app:layout_constraintTop_toBottomOf="@+id/lblHoraShowDetalhe" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>

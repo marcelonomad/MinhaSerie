@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Html
 import android.view.View
-import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -16,11 +15,9 @@ import com.nomad.minhaserie.dataaccess.api.TVMazeEndpoints
 import com.nomad.minhaserie.dataaccess.models.Episode
 import com.nomad.minhaserie.dataaccess.models.Season
 import com.nomad.minhaserie.dataaccess.models.Show
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_show_detail.*
 import retrofit2.Call
 import retrofit2.Response
-import java.lang.Exception
 
 class ShowDetail : AppCompatActivity() {
     var id: Int = 0

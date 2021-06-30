@@ -2,6 +2,7 @@ package com.nomad.minhaserie.dataaccess.models
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class Episode(
 
@@ -21,5 +22,9 @@ data class Episode(
 
     @SerializedName("summary")
     @Expose
-    val summary: String
-)
+    val summary: String,
+
+    @SerializedName("image")
+    @Expose
+    val image: ImageShow
+) :Serializable
