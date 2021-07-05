@@ -72,41 +72,14 @@ class ShowDetail : AppCompatActivity() {
             override fun onResponse(call: Call<List<Season>>, response: Response<List<Season>>) {
                 if (response.body() != null) {
                     this@ShowDetail.seasons = response.body()!!
-                    getEpisodesBySeason()
+                    loadSeasonsData()
+                    pgbShowDetalhe.visibility = View.GONE
+                    srvShowDetalhe.visibility = View.VISIBLE
                 }
             }
         })
     }
 
-    private fun getEpisodesBySeason() {
-        var episode: Call<List<Episode>>
-        var seasonFetched = 0
-
-        seasons.forEach {
-            episode = tvMaze.getEpisodesBySeasonId(it.id)
-
-            episode.enqueue(object : retrofit2.Callback<List<Episode>> {
-                override fun onFailure(call: Call<List<Episode>>, t: Throwable) {
-                    TODO("Not yet implemented")
-                }
-
-                override fun onResponse(
-                    call: Call<List<Episode>>,
-                    response: Response<List<Episode>>
-                ) {
-                    if (response.body() != null) {
-                        it.episodes = response.body()!!
-                        seasonFetched++
-                        if (seasonFetched == seasons.size) {
-                            loadSeasonsData()
-                            pgbShowDetalhe.visibility = View.GONE
-                            srvShowDetalhe.visibility = View.VISIBLE
-                        }
-                    }
-                }
-            })
-        }
-    }
 
     private fun loadSeasonsData() {
         val lm = LinearLayoutManager(this)
